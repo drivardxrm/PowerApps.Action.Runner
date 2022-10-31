@@ -7,8 +7,9 @@ on:
     inputs:
       # Change this value
       solution_name:
-        description: 'PowerAppsActionRunner'
+        description: 'Name of the solution to export'
         required: true
+        default: 'PowerAppsActionRunner'
        #Do Not change these values
       solution_exported_folder:
         description: 'folder name for staging the exported solution *do not change*'
