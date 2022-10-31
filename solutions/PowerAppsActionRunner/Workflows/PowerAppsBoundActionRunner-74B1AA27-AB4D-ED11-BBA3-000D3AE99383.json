@@ -1,0 +1,131 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "driv_sharedcommondataserviceforapps_c817e"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "efc1f562-46c6-4cb3-a094-77ca75ae246b"
+          },
+          "type": "Request",
+          "kind": "PowerAppV2",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "TableCollectionName",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Collection name of the table",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_1": {
+                  "title": "RecordId",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Guid of the bound record",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_2": {
+                  "title": "ActionName",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Unique name of the action or custom api",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_3": {
+                  "title": "InputJson",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Input Json string",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text",
+                "text_1",
+                "text_2"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Respond_to_a_PowerApp_or_flow": {
+          "runAfter": {
+            "Perform_a_bound_action": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "319790e4-02c4-4fba-9120-653488ccfbd7"
+          },
+          "type": "Response",
+          "kind": "PowerApp",
+          "inputs": {
+            "statusCode": 200,
+            "body": {
+              "outputjson": "@{string(outputs('Perform_a_bound_action')?['body'])}"
+            },
+            "schema": {
+              "type": "object",
+              "properties": {
+                "outputjson": {
+                  "title": "OutputJson",
+                  "x-ms-dynamically-added": true,
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "Perform_a_bound_action": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "ac3daccf-d69f-49a9-ad39-14ce896f6b01"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "PerformBoundAction",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "@triggerBody()['text']",
+              "actionName": "Microsoft.Dynamics.CRM.@{triggerBody()['text_2']}",
+              "recordId": "@triggerBody()['text_1']",
+              "item": "@json(triggerBody()?['text_3'])"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}
