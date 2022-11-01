@@ -1,0 +1,114 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "driv_sharedcommondataserviceforapps_c817e"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "efc1f562-46c6-4cb3-a094-77ca75ae246b"
+          },
+          "type": "Request",
+          "kind": "PowerAppV2",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "ActionName",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Unique name of the action or custom api",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_1": {
+                  "title": "InputJson",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Input Json string",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text",
+                "text_1"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Perform_an_unbound_action": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "78dabb6a-07dd-4733-bcf5-f5976f1e324b"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "PerformUnboundAction",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "actionName": "@triggerBody()['text']",
+              "item": "@json(triggerBody()['text_1'])"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Respond_to_a_PowerApp_or_flow": {
+          "runAfter": {
+            "Perform_an_unbound_action": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "319790e4-02c4-4fba-9120-653488ccfbd7"
+          },
+          "type": "Response",
+          "kind": "PowerApp",
+          "inputs": {
+            "statusCode": 200,
+            "body": {
+              "outputjson": "@{outputs('Perform_an_unbound_action')?['body']}"
+            },
+            "schema": {
+              "type": "object",
+              "properties": {
+                "outputjson": {
+                  "title": "OutputJson",
+                  "x-ms-dynamically-added": true,
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}
