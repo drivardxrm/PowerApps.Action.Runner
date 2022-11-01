@@ -25,9 +25,9 @@ on:
        default: solutions/
 env:
 #edit your values here
-  ENVIRONMENT_URL: 'https://drivdev.crm3.dynamics.com/'
-  CLIENT_ID: '12f557db-fa5f-4cbf-a039-68d4457c3b99'
-  TENANT_ID: 'd4c545f1-9caf-4692-98c7-d76beb95b3e7'
+  ENVIRONMENT_URL: ${{ secrets.ENVIRONMENT_URL }}
+  CLIENT_ID: ${{ secrets.CLIENT_ID }}
+  TENANT_ID: ${{ secrets.TENANT_ID }}
 
 jobs:
   export-from-dev:
