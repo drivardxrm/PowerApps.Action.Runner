@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.22102.158" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<ImportExportXml version="9.2.22121.146" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SolutionManifest>
     <UniqueName>PowerAppsActionRunner</UniqueName>
     <LocalizedNames>
       <LocalizedName description="PowerApps Action Runner" languagecode="1033" />
     </LocalizedNames>
     <Descriptions />
-    <Version>1.0.2210.203</Version>
+    <Version>1.0.2210.205</Version>
     <Managed>0</Managed>
     <Publisher>
       <UniqueName>drivardxrm</UniqueName>
@@ -83,15 +83,6 @@
       <RootComponent type="29" id="{03f2a43f-924d-ed11-bba3-000d3ae99383}" behavior="0" />
       <RootComponent type="29" id="{74b1aa27-ab4d-ed11-bba3-000d3ae99383}" behavior="0" />
     </RootComponents>
-    <MissingDependencies>
-      <MissingDependency>
-        <Required type="connectionreference" displayName="driv_sharedcommondataserviceforapps_c817e" solution="Active" id.connectionreferencelogicalname="driv_sharedcommondataserviceforapps_c817e" />
-        <Dependent type="29" displayName="PowerApps:UnboundActionRunner" id="{03f2a43f-924d-ed11-bba3-000d3ae99383}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="connectionreference" displayName="driv_sharedcommondataserviceforapps_c817e" solution="Active" id.connectionreferencelogicalname="driv_sharedcommondataserviceforapps_c817e" />
-        <Dependent type="29" displayName="PowerApps:BoundActionRunner" id="{74b1aa27-ab4d-ed11-bba3-000d3ae99383}" />
-      </MissingDependency>
-    </MissingDependencies>
+    <MissingDependencies />
   </SolutionManifest>
 </ImportExportXml>
